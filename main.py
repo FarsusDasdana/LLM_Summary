@@ -100,6 +100,10 @@ def handle_userinput(user_question, db):
 
 def main():
 
+    st.set_page_config(page_title="Doc Summary📁")
+    st.write(css, unsafe_allow_html=True)
+    st.header("Doc Summary📁")
+
     try:
         os.environ["ANYSCALE_API_KEY"]
     except KeyError:
@@ -113,10 +117,6 @@ def main():
             os.environ["ANYSCALE_API_KEY"] = st.secrets["ANYSCALE_API_KEY"]
         except Exception as e:
             raise Exception(f"OPENAI_API_KEY not found in environment variables or .env file: {e}")
-
-    st.set_page_config(page_title="Doc Summary📁")
-    st.write(css, unsafe_allow_html=True)
-    st.header("Doc Summary📁")
 
     if "conversation" not in st.session_state:
         st.session_state.conversation = None
