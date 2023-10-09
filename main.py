@@ -110,9 +110,9 @@ def main():
         try:
             os.environ["ANYSCALE_API_KEY"]
         except KeyError:
-            raise Exception("OPENAI_API_KEY not found in environment variables or .env file")
+            os.environ["ANYSCALE_API_KEY"] = st.secrets["ANYSCALE_API_KEY"]
         except Exception as e:
-            raise e
+            raise Exception(f"OPENAI_API_KEY not found in environment variables or .env file: {e}")
 
     st.set_page_config(page_title="Doc Summary📁")
     st.write(css, unsafe_allow_html=True)
