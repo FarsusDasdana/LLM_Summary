@@ -17,9 +17,7 @@ import os
 
 def get_docs(docs):
     text = ""
-    print(docs)
     for doc in docs:
-        print(doc)
         loader = TextLoader(doc, encoding='utf-8')
         text += loader.load_and_split()
     print(f'{len(text)} file is saved')
@@ -27,7 +25,6 @@ def get_docs(docs):
 def get_pdf_text(pdf_docs):
     text = ""
     for pdf in pdf_docs:
-        print(pdf)
         pdf_reader = PdfReader(pdf)
         for page in pdf_reader.pages:
             text += page.extract_text()
@@ -105,14 +102,14 @@ def main():
     st.header("Doc Summary📁")
 
     try:
-        os.environ["ANYSCALE_API_KEY"]
+        print(os.environ["ANYSCALE_API_KEY"])
     except KeyError:
         from dotenv import load_dotenv
 
         load_dotenv()
 
         try:
-            os.environ["ANYSCALE_API_KEY"]
+            print(os.environ["ANYSCALE_API_KEY"])
         except KeyError:
             os.environ["ANYSCALE_API_KEY"] = st.secrets["ANYSCALE_API_KEY"]
         except Exception as e:
