@@ -1,0 +1,7 @@
+/venv/
+/.chroma/
+/.idea/
+
+*.pyc
+/.env
+/notebooks/
