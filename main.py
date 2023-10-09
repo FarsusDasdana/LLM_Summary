@@ -1,6 +1,5 @@
 import streamlit as st
 from PyPDF2 import PdfReader
-from dotenv import load_dotenv
 
 from langchain.chains import ConversationalRetrievalChain
 from langchain.chat_models import ChatAnyscale
@@ -12,6 +11,8 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import FAISS
 
 from htmlTemplates import css, user_template, bot_template
+
+import os
 
 
 def get_docs(docs):
@@ -99,7 +100,20 @@ def handle_userinput(user_question, db):
 
 def main():
 
-    load_dotenv()
+    try:
+        os.environ["ANYSCALE_API_KEY"]
+    except KeyError:
+        from dotenv import load_dotenv
+
+        load_dotenv()
+
+        try:
+            os.environ["ANYSCALE_API_KEY"]
+        except KeyError:
+            raise Exception("OPENAI_API_KEY not found in environment variables or .env file")
+        except Exception as e:
+            raise e
+
     st.set_page_config(page_title="Doc Summary📁")
     st.write(css, unsafe_allow_html=True)
     st.header("Doc Summary📁")
